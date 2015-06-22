@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	
+    <title>校园网客户端设置</title>
+	
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/signin.css" rel="stylesheet">
+	<script type="text/javascript">
+	  function submit_login() {
+		  $.ajax({
+          type: "GET", 
+          url: "/cgi-bin/getdrcom?password=" + $("#password").val(),
+          dataType: "json",
+          contentType: "application/json; charset=utf-8",
+        success: function(json) {
+		  if (json.result == 'success') {
+				document.getElementById('alertMsg').innerHTML="<div class='alert alert-info'>登录成功</div>";
+				location.href = "setdrcom.html?password="+$("#password").val();			  
+		  }
+		  else{
+			  document.getElementById('alertMsg').innerHTML="<div class='alert alert-danger'>密码不正确</div>";
+		  }
+		  
+		},
+          error: function(error) {
+            document.getElementById('alertMsg').innerHTML="<div class='alert alert-danger'>未知错误</div>";
+          }
+        });
+	  }
+	</script>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form action="#" class="form-signin" role="form" onsubmit="return submit_login();">
+		<div id="alertMsg"></div>
+        <h2 class="form-signin-heading">登录</h2>
+        
+        <input type="password" class="form-control" placeholder="输入密码" id="password" required autofocus>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="login" >确定</button>
+      </form>
+
+    </div>
+  </body>
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/docs.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+  	    <script type="text/javascript">
+      $(window).on('load', function () {
+        $.ajax({
+          type: "GET", 
+          url: "/cgi-bin/getdrcom?password=123456",
+          dataType: "json",
+          contentType: "application/json; charset=utf-8",
+        success: function(json) {
+		  if (json.result == 'success') {
+				document.getElementById('alertMsg').innerHTML="<div class='alert alert-info'>您没有修改默认密码,默认密码为:123456</div>";
+				//location.href = "setdrcom.html?password="+$("#password").val();			  
+		  }
+		},
+          error: function(error) {
+            
+          }
+        });
+
+      });
+      
+    </script>
+</html>

@@ -1,0 +1,36 @@
+#!/usr/bin/python
+#coding=utf-8
+import os
+import sys
+import json
+import drcom
+
+drcom.check_login()
+
+run_wired = int(os.popen('ps | egrep "wired.py$" | wc -l').read()) >= 1
+internet = True
+
+try:
+    foo = urllib2.urlopen('http://baidu.com',timeout=5).read()
+    if not 'http://www.baidu.com' in foo:
+        internet = False
+except:
+    internet = False
+
+result = 'error'
+message = ''
+
+
+if run_wired:
+    message += '客户端正在运行'
+    if internet:
+        message += ' 但无法连接外网'
+    else:
+        message += ' 外网连接正常'
+        result = "success"
+else:
+    message = '客户端未运行'
+
+data = {'result':result,'message':message}
+
+print drcom.printdata(data)
