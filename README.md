@@ -1,2 +1,2 @@
 # python-drcom-5.20d
-completeed
+openwrt-drcom5.20d
