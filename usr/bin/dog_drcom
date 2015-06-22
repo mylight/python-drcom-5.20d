@@ -1,0 +1,9 @@
+#!/bin/sh
+
+while true
+do
+
+    python /usr/bin/wired.py & > /dev/null
+    sleep 10
+
+done
